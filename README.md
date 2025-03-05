@@ -1,7 +1,13 @@
+# Ressource 
+
+- Managing Loading state : https://stackoverflow.com/questions/78062831/managing-loading-state-in-react-apps
+
+- Managing State (error included) : https://react.dev/learn/managing-state
+
+
 # Display 
 
 ![Users Display](https://github.com/user-attachments/assets/36a6a407-4cc8-4b18-a948-f1dfab4980ef)
-
 
 # React + Vite
 
