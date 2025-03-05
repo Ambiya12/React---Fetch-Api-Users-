@@ -12,6 +12,7 @@ const App = () => {
   const [telephone, setTelephone] = useState("");
   const [address, setAddress] = useState("");
   const [hobbies, setHobbies] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const fetchAPI = async () => {
     setLoading(true);
@@ -30,14 +31,15 @@ const App = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // eslint-disable-next-line no-unused-vars
-      const addNewUsers = await axios.post("http://localhost:8000/api/users", {
+      await axios.post("http://localhost:8000/api/users", {
         firstName,
         lastName,
         telephone,
         address,
         hobbies,
       });
+      setSuccessMessage("User added successfully!");
+      setTimeout(() => setSuccessMessage(""), 3000);
     }
     catch (err) {
       console.error(err);
@@ -58,6 +60,7 @@ const App = () => {
 
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
+      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
 
       {users &&
         users.map((user) => {
@@ -80,7 +83,7 @@ const App = () => {
             </div>
           );
         })}
-        <form onSubmit={handleSubmit} action="POST" style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '300px', margin: '20px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px' }}>
+        <form onSubmit={handleSubmit} action="POST">
           <input type="text" placeholder="First Name" required onChange={e => setFirstName(e.target.value)} />
           <input type="text" placeholder="Last Name" required onChange={e => setLastName(e.target.value)} />
           <input type="text" placeholder="Telephone"required onChange={e => setTelephone(e.target.value)}/>
