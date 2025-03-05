@@ -7,12 +7,14 @@ const App = () => {
   const [users, setUsers] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [telephone, setTelephone] = useState("");
-  const [address, setAddress] = useState("");
-  const [hobbies, setHobbies] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [infoUser, setInfoUser] = useState({
+    firstName: "",
+    lastName: "",
+    telephone: "",
+    address: "",
+    hobbies: "",
+  });
 
   const fetchAPI = async () => {
     setLoading(true);
@@ -31,23 +33,16 @@ const App = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/api/users", {
-        firstName,
-        lastName,
-        telephone,
-        address,
-        hobbies,
-      });
+      // eslint-disable-next-line no-unused-vars
+      const addNewUser = await axios.post("http://localhost:8000/api/users", infoUser);
       setSuccessMessage("User added successfully!");
       setTimeout(() => setSuccessMessage(""), 3000);
-    }
-    catch (err) {
+    } catch (err) {
       console.error(err);
-    }
-    finally {
+    } finally {
       fetchAPI();
     }
-  }
+  };
 
   useEffect(() => {
     fetchAPI();
@@ -84,11 +79,11 @@ const App = () => {
           );
         })}
         <form onSubmit={handleSubmit} action="POST">
-          <input type="text" placeholder="First Name" required onChange={e => setFirstName(e.target.value)} />
-          <input type="text" placeholder="Last Name" required onChange={e => setLastName(e.target.value)} />
-          <input type="text" placeholder="Telephone"required onChange={e => setTelephone(e.target.value)}/>
-          <input type="text" placeholder="Address"required onChange={e => setAddress(e.target.value)}/>
-          <input type="text" placeholder="Hobbies"required onChange={e => setHobbies(e.target.value)}/>
+          <input type="text" placeholder="First Name" required onChange={(e) => setInfoUser({ ...infoUser, firstName: e.target.value })} />
+          <input type="text" placeholder="Last Name" required onChange={(e) => setInfoUser({ ...infoUser, lastName: e.target.value })}/>
+          <input type="text" placeholder="Telephone"required onChange={(e) => setInfoUser({ ...infoUser, telephone: e.target.value })}/>
+          <input type="text" placeholder="Address"required onChange={(e) => setInfoUser({ ...infoUser, address: e.target.value })}/>
+          <input type="text" placeholder="Hobbies"required onChange={(e) => setInfoUser({ ...infoUser, hobbies: e.target.value })}/>
           <input type="submit"/>
         </form>
     </>
