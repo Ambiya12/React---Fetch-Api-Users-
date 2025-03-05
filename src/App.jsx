@@ -28,7 +28,8 @@ const App = () => {
    
       {users && users.map(user => {
         return (
-          <div key={user.id} style={{border: '1px solid black', margin: '10px', padding: '10px'}}>
+          <div key={user.id} style={{border: '1px solid black', margin: '10px', padding: '10px', display: 'inline-block'}}>
+            <p>id : {user.id}</p>
             <p>First Name : {user.firstName}</p>
             <p>Last Name : {user.lastName}</p>
             <p>Telephone : {user.telephone}</p>
